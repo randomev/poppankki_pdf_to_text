@@ -62,7 +62,8 @@ config2024.json:
 and then common_config.json could for example contain groupings and modification shared between years:
 
 ```
-"items_to_remove": 
+{
+    "items_to_remove": 
         [
             "SOMETHING I DONT WANT"
         ],
@@ -84,5 +85,6 @@ and then common_config.json could for example contain groupings and modification
         "ELECTRICITY": [".*fortum.*"],
         "ELECTRICITY GRID COMPANY": [".*caruna.*"]
     }
+}
 ```
 This way you can use same definitions for each year and definition grows over time when you input more and more groupings. You can always run older years with newer groupings to get 1:1 comparison with a new groups you have defined. 
