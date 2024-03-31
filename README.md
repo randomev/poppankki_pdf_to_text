@@ -28,6 +28,7 @@
 4) run "python3 lue_pop-pankki_pdf_tiliotteet.py config2023.json"
 5) there should be pdf/2023/output_pretty.txt that looks something like this
 
+```
 --------------------
 SAVING AND INVESTEMENTS: -1200.0 (per month: -100)
   * EXTRA PAYMENTS: -50.0
@@ -41,5 +42,6 @@ FOOD TOTAL: -6000.0 (per month: -500.0)
 MORTAGE PAYMENTS TOTAL: -12000.0 (per month: -1000.0)
   * MORTAGE PAYMENTS: -12000.0 (per month: -1000.0)
 --------------------
+````
 
 Repeat 1-5 for other years and compare. One folder and config-file for each year. And then one config file to point to parent folder of all years to see all years together.
