@@ -11,6 +11,13 @@ import argparse
 def load_config(config_path):
     with open(config_path) as f:
         config = json.load(f)
+    
+    if 'include' in config:
+        with open(config['include'], 'r') as f:
+            base_config = json.load(f)
+        base_config.update(config)  # Merge the configurations, with the specific config overriding the base config
+        config = base_config
+        
     return config
 
 def parse_transactions(text, filename, config):
@@ -192,7 +199,8 @@ def main():
         if item in sums:
             del sums[item]
 
-    output_format = config['output_format']
+    output_format = config.get('output_format', 'pretty')
+    months = config.get('months', 12)
 
     if output_format == 'pretty':
         filename = 'output_pretty.txt'
@@ -206,16 +214,16 @@ def main():
                 total = round(sub_sums['total'], 2)
                 if len(sub_sums) == 1 and 'total' in sub_sums:
                     if total < -5000:
-                        print(f"{target}: {total} (per kk: {round(total/12, 0)})", file=f)
+                        print(f"{target}: {total} (per kk: {round(total/months, 0)})", file=f)
                     else:
                         print(f"{target}: {total}", file=f)
                 else:
                     print("--------------------", file=f)
-                    print(f"{target} YHTEENSÄ: {total} (per kk: {round(total/12, 0)})", file=f)
+                    print(f"{target} YHTEENSÄ: {total} (per kk: {round(total/months, 0)})", file=f)
                     for sub_target, sum in sorted(sub_sums.items(), key=lambda item: item[1], reverse=False):#sorted(sub_sums.items()):
                         if sub_target != 'total':
                             if sum < -5000:
-                                print(f"  * {sub_target}: {round(sum,2)} (per kk: {round(sum/12, 0)})", file=f)
+                                print(f"  * {sub_target}: {round(sum,2)} (per kk: {round(sum/months, 0)})", file=f)
                             else:
                                 print(f"  * {sub_target}: {round(sum,2)}", file=f)
                     print("--------------------", file=f)

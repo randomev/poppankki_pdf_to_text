@@ -45,3 +45,44 @@ MORTAGE PAYMENTS TOTAL: -12000.0 (per month: -1000.0)
 ````
 
 Repeat 1-5 for other years and compare. One folder and config-file for each year. And then one config file to point to parent folder of all years to see all years together.
+
+
+You can also share some part of config between years by using "include" such as
+
+config2024.json:
+```
+{
+    "months": 3,
+    "pdf_dir": "/Users/a/pdf/2024",
+    "output_dir": "/Users/a/pdf/2024",
+    "output_format": "pretty",
+    "include": "/Users/a/pdf/common_config.json"
+}
+```
+and then common_config.json could for example contain groupings and modification shared between years:
+
+```
+"items_to_remove": 
+        [
+            "SOMETHING I DONT WANT"
+        ],
+    "top_level_groupings": {
+        "MORTAGE PAYMENTS": ["MORTAGE"],
+        "SAVING AND INVESTEMENTS": ["NORDNET", "EXTRA PAYMENTS"],
+        "APOTECS": [
+            "APOTEC",
+            "APT"
+            ],
+        "FOOD": [
+            "FOODSTORE A",
+            "FOODSTORE B"
+            ]
+    },
+
+    "regexp_target_modifications": 
+    {
+        "ELECTRICITY": [".*fortum.*"],
+        "ELECTRICITY GRID COMPANY": [".*caruna.*"]
+    }
+```
+This way you can use same definitions for each year and definition grows over time when you input more and more groupings. You can always run older years with newer groupings to get 1:1 comparison with a new groups you have defined. 
