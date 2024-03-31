@@ -206,12 +206,32 @@ def main():
         filename = 'output_pretty.txt'
         full_path = os.path.join(output_dir, filename)
 
+        header_printed_for_income = False
+        header_printed_for_expenses = False
+        total_income = 0
+        total_expenses = 0
+
         # Save transactions to a CSV file for cross-checking them to our result
         with open(full_path, 'w') as f:
 
             # Text output
             for target, sub_sums in sorted(sums.items(), key=lambda item: item[1]['total'], reverse=True):
                 total = round(sub_sums['total'], 2)
+
+                if total >= 0:
+                    total_income += total
+
+                    if not header_printed_for_income:
+                        print("-------------- TULOT --------------", file=f)
+                        header_printed_for_income = True
+
+                if total < 0:
+                    total_expenses += total
+                    if not header_printed_for_expenses:
+                        print("\nTULOT YHTEENSÄ {}".format(total_income), file=f)
+                        print("\n\n-------------- MENOT --------------", file=f)
+                        header_printed_for_expenses = True
+
                 if len(sub_sums) == 1 and 'total' in sub_sums:
                     if total < -5000:
                         print(f"{target}: {total} (per kk: {round(total/months, 0)})", file=f)
@@ -227,6 +247,11 @@ def main():
                             else:
                                 print(f"  * {sub_target}: {round(sum,2)}", file=f)
                     print("--------------------", file=f)
+
+            print("\nMENOT YHTEENSÄ {}".format(round(total_expenses,2)), file=f)
+
+            print("\nTULOT - MENOT YHTEENSÄ {}".format(round(total_income + total_expenses,2)), file=f)
+
 
 
     if output_format == 'html_tree':

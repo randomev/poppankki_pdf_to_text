@@ -5,10 +5,11 @@
 - Converts those pdf-files to a text representation on the fly
 - Tries to parse transactions best it can
 - Manipulates target names and groups by provided configuration parameters
-  - regexp_target_modifications
-  - third_line_text_to_target
-  - top_level_groupings
-  - items_to_remove
+  - regexp_target_modifications (you can modify with regexp names, such as "ELECTRICITY" from .*fortum.* and .*elec.* etc.)
+  - third_line_text_to_target (sometimes descriptive part of transaction is on the third line of parsed text, this can be filled then)
+  - top_level_groupings (this can be used to group by names of senders and receivers of money)
+  - items_to_remove (such as your own internal bank account transfers eg. from account 1 to account 2. This is just putting money from another pocket to another pocket and in some sense it's not interesting. If this applies to you,
+  you can remove these transactions here by providing sender or receiver names or accounts here. )
 - Sorts results based on amount of money
 - Outputs to selected format (for now, only prettified text)
 
