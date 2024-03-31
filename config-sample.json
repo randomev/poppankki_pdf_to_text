@@ -1,0 +1,31 @@
+{
+    "pdf_dir": "/Users/a/pdf/2023",
+    "output_dir": "/Users/a/pdf/2023",
+    "output_format": "pretty",
+    "third_line_text_to_target": {
+        "EXTRA PAYMENTS": [".*EXTRA.*123.*"]
+    },
+    "items_to_remove": 
+        [
+            "SOMETHING I DONT WANT"
+        ],
+    "top_level_groupings": {
+        "MORTAGE PAYMENTS": ["MORTAGE"],
+        "SAVING AND INVESTEMENTS": ["NORDNET", "EXTRA PAYMENTS"],
+        "APOTECS": [
+            "APOTEC",
+            "APT"
+            ],
+        "FOOD": [
+            "FOODSTORE A",
+            "FOODSTORE B"
+            ]
+    },
+
+    "regexp_target_modifications": 
+    {
+        "ELECTRICITY": [".*fortum.*"],
+        "ELECTRICITY GRID COMPANY": [".*caruna.*"]
+    }
+
+}
